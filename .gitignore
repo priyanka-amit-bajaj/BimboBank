@@ -1,0 +1,64 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+env/
+venv/
+ENV/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# VSCode settings
+.vscode/
+
+# macOS system files
+.DS_Store
+
+# Python environment + logs
+*.log
+*.pot
+*.mo
+*.env
+.env.*
+.coverage
+.cache/
+.pytest_cache/
+
+# Streamlit config
+.streamlit/
+
+# Python package build
+build/
+develop-eggs/
+dist/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Pip requirements log
+pip-log.txt
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+coverage.xml
+nosetests.xml
+test_*.py
+
+# MyPy
+.mypy_cache/
+.dmypy.json

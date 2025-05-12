@@ -42,4 +42,10 @@ It’s Wall Street... but make it ✨bimbo✨.
 ## 🧠 Why it exists
 
 Because finance education doesn’t have to be boring, gatekept, or grayscale.  
-**Fintendo** uses humor, design, and interactive gameplay to make concepts like portfolio theory, compounding, and volatility *actually click*.
+**BimboBank** uses humor, design, and interactive gameplay to make concepts like portfolio theory, compounding, and volatility *actually click*.
+
+---
+
+## What's Next?
+- Global changes affecting stock prices
+- Options (Call & Put)

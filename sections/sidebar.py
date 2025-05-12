@@ -37,6 +37,24 @@ Buy? Sell? Win? Level up and unlock new baddie titles.
 
 ---
 
+### 🛑 Risk Settings
+
+**Stop-Loss (10%)**  
+If your brand drops 10% from what you paid, it automatically sells.  
+🛡️ Protects your closet from glam catastrophes.
+
+**Take-Profit (20%)**  
+If a brand pops +20%, it sells to lock in gains.  
+💼 Secures your slay so you don’t fumble the bag.
+
+### 💡 When to Use Them:
+
+- Turn on **Stop-Loss** if you're scared of dramatic flops 😬  
+- Use **Take-Profit** to capture profits when a brand goes viral 📈  
+- Mix and match depending on your glam tolerance 💅
+
+---
+
 ## 💵 Closet Insights
 
 ### 💵 Capital Gains  

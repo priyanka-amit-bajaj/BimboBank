@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import matplotlib
+matplotlib.use('Agg')  # ✅ safest backend for Streamlit
 import matplotlib.pyplot as plt
 
 
@@ -20,14 +22,17 @@ def render_analytics_panel():
             if val > 0:
                 labels.append(f"{b} ({val/total_value:.1%})")
                 sizes.append(val)
-        fig, ax = plt.subplots(figsize=(2, 2), facecolor='#0e1117')
+
+        fig, ax = plt.subplots(figsize=(3, 3))
+        fig.patch.set_facecolor('#0e1117')  # dark background safely
+
         wedges, texts = ax.pie(
             sizes,
             labels=labels,
             colors=colors,
             wedgeprops={'edgecolor': 'white', 'linewidth': 1.5}
         )
-        ax.set_facecolor('#0e1117')  # dark mode background
+
         for text in texts:
             text.set_color('white')
             text.set_fontsize(10)

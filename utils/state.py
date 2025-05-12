@@ -67,24 +67,42 @@ def update_prices_and_gossip():
                     auto_sell = True
                     reason = "🎯 Take-profit triggered"
 
-                if auto_sell:
-                    qty = st.session_state.closet[b]
-                    proceeds = qty * current_price
-                    spent = sum(st.session_state.buys[b])
-                    profit = proceeds - spent
+                if st.session_state.closet[b] > 0 and st.session_state.buys[b]:
+                    current_price = st.session_state.prices[b]
+                    stop_enabled = st.session_state.stop_loss_enabled[b]
+                    profit_enabled = st.session_state.take_profit_enabled[b]
 
-                    st.session_state.closet[b] = 0
-                    st.session_state.allowance += proceeds
-                    st.session_state.buys[b] = []
-                    st.session_state.sale_history.append({
-                        "brand": b,
-                        "qty": qty,
-                        "profit": profit,
-                        "price": current_price,
-                        "timestamp": datetime.now().strftime("%H:%M:%S")
-                    })
+                    sell_indices = []
+                    for i, buy_price in enumerate(st.session_state.buys[b]):
+                        if (
+                            (stop_enabled and current_price <= buy_price * 0.9) or
+                            (profit_enabled and current_price >= buy_price * 1.2)
+                        ):
+                            sell_indices.append(i)
 
-                    st.toast(f"{reason}: Auto-sold all {b} for ${proceeds:.2f}")
+                    if sell_indices:
+                        sell_prices = [st.session_state.buys[b][i] for i in sell_indices]
+                        qty = len(sell_indices)
+                        proceeds = qty * current_price
+                        spent = sum(sell_prices)
+                        profit = proceeds - spent
+
+                        # Remove only sold items
+                        st.session_state.buys[b] = [p for i, p in enumerate(st.session_state.buys[b]) if i not in sell_indices]
+                        st.session_state.closet[b] -= qty
+                        st.session_state.allowance += proceeds
+
+                        st.session_state.sale_history.append({
+                            "brand": b,
+                            "qty": qty,
+                            "profit": profit,
+                            "price": current_price,
+                            "timestamp": datetime.now().strftime("%H:%M:%S")
+                        })
+
+                        trigger_type = "🎯 Take-profit" if current_price >= buy_price * 1.2 else "⛔ Stop-loss"
+                        st.toast(f"{trigger_type} triggered: Auto-sold {qty} of {b} for ${proceeds:.2f}")
+
 
         # XP bump
         if net >= 1500:

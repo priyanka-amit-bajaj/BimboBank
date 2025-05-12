@@ -28,7 +28,7 @@ def render_dashboard():
 
     # Closet Diversity
     num_owned = sum(1 for qty in st.session_state.closet.values() if qty > 0)
-    with st.expander("🌈 Closet Diversity Score"):
+    with st.expander("🌈 Closet Diversity"):
         if num_owned == 3:
             st.success("Closet fully diversified! You’re a fashion economist queen 💅")
         elif num_owned == 2:

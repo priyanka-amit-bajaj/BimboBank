@@ -77,73 +77,6 @@ def render_trading_panel():
         st.markdown("</div>", unsafe_allow_html=True)
 
 
-    '''
-    st.subheader("🛒 Time to Shop or Flip")
-    brands = list(st.session_state.prices.keys())
-    choice = st.selectbox("✨ Pick your glam:", brands)
-    qty = st.number_input("How many?", min_value=1, value=1)
-    col1, col2 = st.columns(2)
-    with st.container():
-        st.markdown("""
-        <div style="background-color:#fbeeff; border:1px solid #e0c7f7; border-radius:10px; padding:10px; width:300px; float:right; font-size:14px;">
-            <h4 style="margin-top:0;">💼 At a Glance</h4>
-        """, unsafe_allow_html=True)
-
-        for b in brands:
-            st.markdown(
-                f"<div><b>{b}</b> — 💰 ${st.session_state.prices[b]:.2f} | 👛 {st.session_state.closet[b]} items</div>",
-                unsafe_allow_html=True
-            )
-
-        st.markdown(
-            f"<div style='margin-top:10px;'><b>💳 Allowance:</b> ${st.session_state.allowance:.2f}</div></div>",
-            unsafe_allow_html=True
-        )
-
-    # Buy Button
-    with col1:
-        if st.button("🛍️ Buy Now"):
-            cost = qty * st.session_state.prices[choice]
-            if st.session_state.allowance >= cost:
-                st.session_state.allowance -= cost
-                st.session_state.closet[choice] += qty
-                for _ in range(qty):
-                    st.session_state.buys[choice].append(st.session_state.prices[choice])
-                st.session_state.xp += 10
-                st.success(f"Slayed {qty}x {choice} 💖")
-            else:
-                st.warning("Not enough allowance, boo 😭")
-
-    # Sell Button
-    with col2:
-        if st.button("📦 Sell Now"):
-            if st.session_state.closet[choice] >= qty:
-                earned = qty * st.session_state.prices[choice]
-                bought_prices = st.session_state.buys[choice][:qty]
-                st.session_state.buys[choice] = st.session_state.buys[choice][qty:]
-                profit = earned - sum(bought_prices)
-                st.session_state.closet[choice] -= qty
-                st.session_state.allowance += earned
-                st.session_state.sale_history.append({
-                    "brand": choice,
-                    "qty": qty,
-                    "profit": profit,
-                    "price": st.session_state.prices[choice],
-                    "timestamp": datetime.now().strftime("%H:%M:%S")
-                })
-                if profit > 0:
-                    st.session_state.xp += 15
-                    st.success(f"Profit babe 💰 (+15 XP)")
-                elif profit < 0:
-                    st.session_state.xp += 5
-                    st.info(f"Sold at a loss, but hey, still learning (+5 XP)")
-                else:
-                    st.session_state.xp += 10
-                    st.info("Broke even — cute but neutral 😎")
-            else:
-                st.warning("You don't even own that much, bestie")
-
-'''
     # Stop-loss / Take-Profit Toggles
     st.subheader("🛑 Risk Settings")
     for b in brands:
@@ -166,6 +99,8 @@ def render_trading_panel():
     with st.expander("🧾 View Sale History"):
         if st.session_state.sale_history:
             df = pd.DataFrame(st.session_state.sale_history)
-            st.dataframe(df[::-1], use_container_width=True)
+            df = df[::-1]
+            df.index += 1
+            st.dataframe(df, use_container_width=True)
         else:
             st.info("No trades yet, boo. Buy and resell to track your glow-up 💅")
